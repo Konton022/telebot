@@ -13,8 +13,13 @@ from telebot import types
 
 import telebot
 
-API_TOKEN = '1878028335:AAH_3Bds2dOUTQTlrg88nVLqLvOARb3QWLc'
-API_WEATHER_TOKEN = 'ae47378a82743093b5efe8934910c74c'
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+API_TOKEN = os.getenv('API_TOKEN')
+API_WEATHER_TOKEN = os.getenv('API_WEATHER_TOKEN')
+
 
 bot = telebot.TeleBot(API_TOKEN)
 

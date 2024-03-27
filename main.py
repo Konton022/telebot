@@ -1,22 +1,16 @@
 import telebot
 import requests
 import json
+import os
 import re
 from g4f.client import Client
 from g4f.Provider import RetryProvider,ChatForAi, Chatgpt4Online, ChatgptFree, ChatgptX, FlowGpt
 from telebot import types
 
-#!/usr/bin/python
 
-# This is a simple echo bot using the decorator mechanism.
-# It echoes any incoming text messages.
 
-import telebot
 
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
 API_TOKEN = os.getenv('API_TOKEN')
 API_WEATHER_TOKEN = os.getenv('API_WEATHER_TOKEN')
 

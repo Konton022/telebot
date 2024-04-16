@@ -80,12 +80,12 @@ def handle_gpt(message):
     send = bot.reply_to(message, 'обрабатываю запрос...')
     # bot.register_next_step_handler(send, get_gpt_message)
     get_gpt_message(message)
-
-
+    
 def get_gpt_message(message):
-    client = Client(
-        provider=RetryProvider([ChatForAi, Chatgpt4Online, ChatgptFree, ChatgptX, FlowGpt], shuffle=False)
-    )
+    # client = Client(
+    #     provider=RetryProvider([ChatForAi, Chatgpt4Online, ChatgptFree, ChatgptX, FlowGpt], shuffle=False)
+    # )
+    client = Client()
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": message.text}],

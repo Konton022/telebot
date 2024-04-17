@@ -4,7 +4,7 @@ import json
 import os
 import re
 from g4f.client import Client
-from g4f.Provider import RetryProvider,ChatForAi, Chatgpt4Online, ChatgptFree, ChatgptX, FlowGpt
+from g4f.Provider import RetryProvider,ChatForAi, Chatgpt4Online, ChatgptNext, ChatgptX, GptTalkRu, Koala, FlowGpt
 from telebot import types
 
 
@@ -16,7 +16,6 @@ API_WEATHER_TOKEN = os.getenv('API_WEATHER_TOKEN')
 
 
 bot = telebot.TeleBot(API_TOKEN)
-
 
 def get_weather_by_api(message):
     # Define the base URL for the OpenWeatherAPI and your API key
@@ -80,12 +79,14 @@ def handle_gpt(message):
     send = bot.reply_to(message, 'обрабатываю запрос...')
     # bot.register_next_step_handler(send, get_gpt_message)
     get_gpt_message(message)
-    
+
 def get_gpt_message(message):
     # client = Client(
     #     provider=RetryProvider([ChatForAi, Chatgpt4Online, ChatgptFree, ChatgptX, FlowGpt], shuffle=False)
     # )
-    client = Client()
+    client = Client(
+        provider=RetryProvider([ChatForAi, Chatgpt4Online, ChatgptNext, ChatgptX, GptTalkRu, Koala, FlowGpt], shuffle=False)
+    )
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": message.text}],

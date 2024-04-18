@@ -85,7 +85,7 @@ def get_gpt_message(message):
     #     provider=RetryProvider([ChatForAi, Chatgpt4Online, ChatgptFree, ChatgptX, FlowGpt], shuffle=False)
     # )
     client = Client(
-        provider=RetryProvider([ChatForAi, Chatgpt4Online, ChatgptNext, ChatgptX, GptTalkRu, Koala, FlowGpt], shuffle=False)
+        # provider=RetryProvider([ChatForAi, Chatgpt4Online, ChatgptNext, ChatgptX, GptTalkRu, Koala, FlowGpt], shuffle=False)
     )
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",

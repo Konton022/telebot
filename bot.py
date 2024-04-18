@@ -4,7 +4,7 @@ import json
 import os
 import re
 from g4f.client import Client
-from g4f.Provider import RetryProvider,ChatForAi, Chatgpt4Online, ChatgptNext, ChatgptX, GptTalkRu, Koala, FlowGpt
+from g4f.Provider import RetryProvider,ChatForAi, Chatgpt4Online, ChatgptNext, ChatgptX, GptTalkRu, Koala, FlowGpt, Vercel
 from telebot import types
 
 
@@ -85,7 +85,7 @@ def get_gpt_message(message):
     #     provider=RetryProvider([ChatForAi, Chatgpt4Online, ChatgptFree, ChatgptX, FlowGpt], shuffle=False)
     # )
     client = Client(
-        # provider=RetryProvider([ChatForAi, Chatgpt4Online, ChatgptNext, ChatgptX, GptTalkRu, Koala, FlowGpt], shuffle=False)
+        provider=RetryProvider([Vercel], shuffle=False)
     )
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",

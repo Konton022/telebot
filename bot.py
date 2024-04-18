@@ -74,24 +74,42 @@ def handle_gpt(message):
     bot.register_next_step_handler(send, get_gpt_img)
 
 
-@bot.message_handler(content_types=['text'])
-def handle_gpt(message):
-    send = bot.reply_to(message, 'обрабатываю запрос...')
-    # bot.register_next_step_handler(send, get_gpt_message)
-    get_gpt_message(message)
+# @bot.message_handler(content_types=['text'])
+# def handle_gpt(message):
+#     send = bot.reply_to(message, 'обрабатываю запрос...')
+#     # bot.register_next_step_handler(send, get_gpt_message)
+#     get_gpt_message(message)
 
-def get_gpt_message(message):
+# def get_gpt_message(message):
     # client = Client(
     #     provider=RetryProvider([ChatForAi, Chatgpt4Online, ChatgptFree, ChatgptX, FlowGpt], shuffle=False)
     # )
-    client = Client(
-        provider=RetryProvider([Vercel], shuffle=False)
-    )
+    client = Client()
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": message.text}],
     )
     print(response.choices[0].message.content)
+    bot.send_message(message.chat.id, response.choices[0].message.content)
+
+@bot.message_handler(content_types=['text'])
+def handle_gpt(message):
+    # print(message)
+    send = bot.reply_to(message, 'обрабатываю запрос...')
+    get_gpt_message(message, send)
+
+def get_gpt_message(message, send):
+    client = Client()
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": message.text}],
+    )
+    print(response.choices[0].message.content)
+
+    # Delete the previous reply message
+    bot.delete_message(message.chat.id, send.message_id)
+
+    # Send the new GPT message
     bot.send_message(message.chat.id, response.choices[0].message.content)
 
 def get_gpt_img(message):
